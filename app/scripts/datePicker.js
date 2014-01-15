@@ -2,7 +2,7 @@
 
 var Module = angular.module('datePicker', []);
 
-Module.constant('datePickerConfig', {
+Module.value('datePickerConfig', {
   template: 'templates/datepicker.html',
   view: 'month',
   views: ['year', 'month', 'date', 'hours', 'minutes'],

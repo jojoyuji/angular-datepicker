@@ -154,7 +154,7 @@
         {{(a|date)||"pick start"}} - {{(b|date)||"pick end"}}
       </a>
 
-      <div class="dropdown-menu" ng-click="$event.preventDefault();$event.stopPropagation()">
+      <div class="dropdown-menu" ng-click="$event.preventDefault();$event.stopPropagation()" template="app/templates/_jojo.html">
         <div date-range start="a" end="b"></div>
       </div>
     </div>
@@ -169,7 +169,24 @@
 <script src="scripts/input.js"></script>
 <!-- endbuild -->
 <script>
-  angular.module('sample', ['datePicker', 'ui.bootstrap']);
+  angular.module('sample', ['datePicker', 'ui.bootstrap']).config(function($provide) {
+// Overrides datePicker module config
+  $provide.decorator('dateRangeDirective', function($delegate) {
+    var directive = $delegate[0];
+    directive.templateUrl = 'templates/daterange_decorator.html';
+    //directive.templateUrl = 'templates/daterange.html';
+    return $delegate;
+  });
+
+  $provide.decorator('datePickerConfig', function($delegate) {
+    var config = $delegate
+    config.template = 'templates/datepicker_decorator.html';
+    //config.template = 'templates/datepicker.html';
+    return $delegate;
+  });
+});
+
+
 </script>
 </body>
 </html>
